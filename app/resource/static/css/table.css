@@ -1,0 +1,100 @@
+.table-container {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 기본 4열 */
+    gap: 20px; /* 버튼 간 간격 */
+    justify-content: center;
+    margin: 2rem auto;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.table-category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selectable-box {
+    border: none; /* 테두리 제거 */
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent; /* 배경색 제거 */
+}
+
+.selectable-box:hover {
+    transform: scale(1.05); /* 호버 시 약간 확대 */
+}
+
+.table-icon {
+    width: 100px;
+    height: auto;
+}
+
+.table-number {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333; /* 번호 색상 */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 1024px) {
+    .table-container {
+        grid-template-columns: repeat(2, 1fr); /* 중간 크기 화면에서 2열 */
+    }
+}
+
+@media (max-width: 600px) {
+    .table-container {
+        grid-template-columns: repeat(1, 1fr); /* 작은 화면에서 1열 */
+    }
+}
