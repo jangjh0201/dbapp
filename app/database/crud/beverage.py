@@ -20,19 +20,15 @@ def read_all_beverages(db: Session):
 
 def update_beverage(
     db: Session,
-    beverage_id: float,
+    beverage: Beverage,
     name: str = None,
-    price: int = None,
     quantity: int = None,
 ):
-    beverage = db.query(Beverage).filter(Beverage.id == beverage_id).first()
     if beverage is None:
         return None
 
     if name is not None:
         beverage.name = name
-    if price is not None:
-        beverage.price = price
     if quantity is not None:
         beverage.quantity = quantity
 
