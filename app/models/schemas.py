@@ -2,20 +2,9 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 
-class IceCream(BaseModel):
+class Beverage(BaseModel):
     id: int
     name: str
-    price: int
-    quantity: int
-
-    class Config:
-        from_attributes = True
-
-
-class Topping(BaseModel):
-    id: int
-    name: str
-    price: int
     quantity: int
 
     class Config:
@@ -25,26 +14,7 @@ class Topping(BaseModel):
 class Consumable(BaseModel):
     id: int
     name: str
-    price: int
-    quantity: int
-
-    class Config:
-        from_attributes = True
-
-
-class Order(BaseModel):
-    id: int
-    ice_cream_id: int
-    topping_ids: Optional[List[int]] = None
-    consumable_ids: Optional[List[int]] = None
-
-    class Config:
-        from_attributes = True
-
-
-class RobotLog(BaseModel):
-    id: int
-    status: int
+    storage: bool
 
     class Config:
         from_attributes = True
@@ -53,13 +23,6 @@ class RobotLog(BaseModel):
 class User(BaseModel):
     username: str
     password: str
-
-
-class Table(BaseModel):
-    id: int
-
-    class Config:
-        from_attributes = True
 
 
 FAKE_USERS_DB = {
