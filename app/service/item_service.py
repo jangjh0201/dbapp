@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from models.models import Item
-from app.database.crud.item import create_item, read_all_items
+from app.database.crud.item import create_item, read_all_items, read_item_by_id, delete_item_by_id, update_item
+from sqlalchemy import update
+from sqlalchemy import update
 
 
 def add_item(
@@ -40,12 +41,11 @@ def remove_item(item_id: int, db: Session):
     Returns:
         성공 여부
     """
-    db.query(Item).filter(Item.id == item_id).delete()
-    db.commit()
+    delete_item_by_id(db, item_id)
     return True
 
 
-def edit_item(item_id: int, db: Session):
+def edit_item_name(item_id: int, name: str, db: Session):
     """
     아이템 수정 함수
     Args:
@@ -54,6 +54,22 @@ def edit_item(item_id: int, db: Session):
     Returns:
         성공 여부
     """
-    db.query(Item).filter(Item.id == item_id).update({Item.storage: False})
-    db.commit()
+    update_item(db, item_id, name, None)
     return True
+
+
+def change_item_storage(item_id: int, request: bool, db: Session):
+    """
+    아이템 보관 함수
+    Args:
+        item_id: 아이템 ID
+        db: 데이터베이스 세션
+    Returns:
+        성공 여부
+    """
+    if request == True:
+        update(db, item_id, None, False)
+    elif request == False:
+        update(db, item_id, None, True)
+    else:
+        return False

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from models.models import Beverage
-from app.database.crud.beverage import create_beverage, read_all_beverages
+from app.database.crud.beverage import create_beverage, read_all_beverages, update_beverage, delete_beverage_by_id
 
 
 def add_beverage(
@@ -52,6 +52,20 @@ def remove_beverage(beverage_id: int, db: Session):
     Returns:
         성공 여부
     """
-    db.query(Beverage).filter(Beverage.id == beverage_id).delete()
-    db.commit()
+    delete_beverage_by_id(db, beverage_id)
+    return True
+
+
+def use_beverage(beverage_id: int, db: Session):
+    """
+    음료 수정 함수
+    Args:
+        beverage_id: 음료 ID
+        db: 데이터베이스 세션
+    Returns:
+        성공 여부
+    """
+    beverage = db.query(Beverage).filter(Beverage.id == beverage_id).first()
+    beverage.quantity -= 1
+    update_beverage(db, beverage)
     return True
