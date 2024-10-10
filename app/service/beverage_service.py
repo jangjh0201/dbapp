@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from models.models import Beverage
-from app.database.crud.beverage import create_beverage, read_all_beverages, update_beverage, delete_beverage_by_id
+from app.database.crud.beverage import create_beverage, read_beverage_by_id, read_all_beverages, update_beverage, delete_beverage_by_id
 
 
 def add_beverage(
@@ -65,7 +65,10 @@ def use_beverage(beverage_id: int, db: Session):
     Returns:
         성공 여부
     """
-    beverage = db.query(Beverage).filter(Beverage.id == beverage_id).first()
-    beverage.quantity -= 1
-    update_beverage(db, beverage)
-    return True
+    beverage = read_beverage_by_id(db, beverage_id)
+    if beverage.quantity == 0:
+        return False
+    else:
+        beverage.quantity -= 1
+        update_beverage(db, beverage)
+        return True
