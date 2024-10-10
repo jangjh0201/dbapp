@@ -63,8 +63,8 @@ class Table(BaseModel):
 
 
 FAKE_USERS_DB = {
-    "rviz": {
-        "username": "rviz",
+    "rbiz": {
+        "username": "rbiz",
         "password": "xyz",  # 실제로는 해시된 비밀번호를 사용해야 합니다.
     }
 }
