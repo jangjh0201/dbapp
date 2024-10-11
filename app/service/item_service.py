@@ -47,7 +47,7 @@ def remove_item(item_id: int, db: Session):
 
 def edit_item_name(item_id: int, name: str, db: Session):
     """
-    아이템 수정 함수
+    아이템 이름 수정 함수
     Args:
         item_id: 아이템 ID
         db: 데이터베이스 세션
@@ -60,7 +60,7 @@ def edit_item_name(item_id: int, name: str, db: Session):
 
 def change_item_storage(item_id: int, request: bool, db: Session):
     """
-    아이템 보관 함수
+    아이템 상태 변경 함수
     Args:
         item_id: 아이템 ID
         db: 데이터베이스 세션

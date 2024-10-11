@@ -31,7 +31,7 @@ def update_item(
     if name is not None:
         item.name = name
     if storage is not None:
-        item.price = storage
+        item.storage = storage
 
     db.commit()
     db.refresh(item)
