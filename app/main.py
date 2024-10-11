@@ -1,7 +1,7 @@
 
 import sys
 import os
-from app.router.v1 import drawer
+from router.v1 import drawer
 from utils.init_db import initialize_tables
 from router.v1 import home, beverage, auth
 from fastapi import FastAPI

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Form, Request, Depends
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
-from app.service.beverage_service import BeverageService
+from service.beverage_service import BeverageService
 from config.database import get_db
 from auth.auth import manager
 
