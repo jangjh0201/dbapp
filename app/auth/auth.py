@@ -2,7 +2,7 @@ import os
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi_login import LoginManager
-from models.schemas import FAKE_USERS_DB, User
+from schemas.user_schema import User, FAKE_USERS_DB
 from dotenv import load_dotenv
 
 load_dotenv()  # .env 파일 로드
