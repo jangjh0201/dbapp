@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, Form, Depends, HTTPException, Response, 
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
-from database.database import get_db
+from config.database import get_db
 from auth.auth import manager, authenticate_user
 
 router = APIRouter()
@@ -19,6 +19,21 @@ def login_page(request: Request):
         로그인 페이지 반환 (HTML)
     """
     return templates.TemplateResponse("login.html", {"request": request})
+
+
+@router.get("/logout")
+async def logout(response: Response):
+    """
+    로그아웃 API
+    Args:
+        response: Response 객체
+    Returns:
+        쿠키 삭제 후 메인 페이지로 리다이렉트
+    """
+    response = RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
+    response.delete_cookie(key="access-token")
+    response.delete_cookie(key="username")
+    return response
 
 
 @router.post("/auth/token")
@@ -49,19 +64,4 @@ async def login(
     response = RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
     manager.set_cookie(response, access_token)
     response.set_cookie(key="username", value=user.username)
-    return response
-
-
-@router.get("/logout")
-async def logout(response: Response):
-    """
-    로그아웃 API
-    Args:
-        response: Response 객체
-    Returns:
-        쿠키 삭제 후 메인 페이지로 리다이렉트
-    """
-    response = RedirectResponse(url="/", status_code=status.HTTP_302_FOUND)
-    response.delete_cookie(key="access-token")
-    response.delete_cookie(key="username")
     return response

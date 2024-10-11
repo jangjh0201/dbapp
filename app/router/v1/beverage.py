@@ -3,7 +3,7 @@ from fastapi import APIRouter, Request, Form, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette.responses import HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
-from database.database import get_db
+from config.database import get_db
 from service import item_service
 from auth.auth import manager
 import io
@@ -23,6 +23,7 @@ def show_inventory(request: Request, db: Session = Depends(get_db)):
     Returns:
         모든 재고 정보 리스트 반환 (HTML)
     """
+    item_service = item_service()
     ice_creams, toppings, consumables = item_service.get_all_inventories(db)
     return templates.TemplateResponse(
         "stock.html",
