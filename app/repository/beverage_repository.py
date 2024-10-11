@@ -6,20 +6,20 @@ class BeverageRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def create_beverage(self, name: str, price: int, quantity: int):
-        beverage = Beverage(name=name, price=price, quantity=quantity)
+    def create(self, name: str, quantity: int):
+        beverage = Beverage(name=name, quantity=quantity)
         self.db.add(beverage)
         self.db.commit()
         self.db.refresh(beverage)
         return beverage
 
-    def read_beverage_by_id(self, beverage_id: int):
+    def read_by_id(self, beverage_id: int):
         return self.db.query(Beverage).filter(Beverage.id == beverage_id).first()
 
-    def read_all_beverages(self):
+    def read_all(self):
         return self.db.query(Beverage).all()
 
-    def update_beverage(
+    def update(
         self,
         beverage: Beverage,
         name: str = None,
@@ -34,7 +34,7 @@ class BeverageRepository:
         self.db.refresh(beverage)
         return beverage
 
-    def delete_beverage_by_id(self, beverage_id: int):
+    def delete_by_id(self, beverage_id: int):
         beverage = self.db.query(Beverage).filter(
             Beverage.id == beverage_id).first()
         if beverage:
@@ -42,7 +42,7 @@ class BeverageRepository:
             self.db.commit()
         return beverage
 
-    def delete_all_beverages(self):
+    def delete_all(self):
         beverages = self.db.query(Beverage).all()
         for beverage in beverages:
             self.db.delete(beverage)
