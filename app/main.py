@@ -1,8 +1,9 @@
 
 import sys
 import os
+from app.router.v1 import drawer
 from utils.init_db import initialize_tables
-from router.v1 import home, beverage, item, auth
+from router.v1 import home, beverage, auth
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -19,7 +20,7 @@ app.mount("/static", StaticFiles(directory="app/resource/static"), name="static"
 # 라우터 등록
 app.include_router(home.router)
 app.include_router(beverage.router)
-app.include_router(item.router)
+app.include_router(drawer.router)
 app.include_router(auth.router)
 
 # 테이블 및 데이터베이스 초기화
