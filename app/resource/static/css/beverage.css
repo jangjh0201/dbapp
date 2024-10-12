@@ -1,7 +1,19 @@
+.dispenser-container-wrapper {
+    display: flex;
+    justify-content: center;
+    /* 전체 중앙 정렬 */
+}
+
 .dispenser-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: space-evenly;
+    /* 카드들을 양쪽에 균등하게 정렬 */
+    width: 100%;
+    /* 부모의 전체 너비 사용 */
+    max-width: 1200px;
+    /* 최대 너비 제한 */
 }
 
 .dispenser {
@@ -10,14 +22,39 @@
     border-radius: 8px;
     width: 200px;
     text-align: center;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .dispenser-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
+h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* X 버튼 스타일 - 크기 키움 */
+.close-dispenser {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-dispenser:hover {
+    color: black;
+}
+
+/* 캡슐 스타일 */
 .capsule-container {
     margin: 20px 0;
 }
@@ -35,32 +72,119 @@
     margin: auto;
 }
 
+/* 주문, 보충 버튼 스타일 */
 .control-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-.minus-button,
-.plus-button,
-.delete-button {
-    padding: 5px 10px;
+button {
+    padding: 10px 20px;
     font-size: 16px;
-    border: none;
+    cursor: pointer;
     border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: #e0e0e0;
+    /* 더 옅은 회색으로 변경 */
+    color: black;
+    /* 기본 상태 글씨 검은색 */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+    background-color: #bbbbbb;
+    /* 호버 시 더 진한 회색 */
+    color: white;
+    /* 호버 시 글씨 흰색 */
+    border-color: #888;
+}
+
+/* + 버튼 중앙 배치 */
+.add-dispenser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 300px;
+}
+
+.add-dispenser h3 {
+    font-size: 3rem;
+    color: #888;
+    margin: 0;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* 인풋 창과 버튼 사이 간격 */
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.minus-button {
-    background-color: #dc3545;
-    color: white;
+.close:hover,
+.close:focus {
+    color: black;
 }
 
-.plus-button {
-    background-color: #28a745;
-    color: white;
+/* 인풋 창 스타일 */
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
-.delete-button {
-    background-color: #ffc107;
+/* 버튼 스타일 */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: #e0e0e0;
+    /* 기본 상태에서 더 옅은 회색 */
+    color: black;
+    /* 기본 상태에서 검은색 글씨 */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+    background-color: #bbbbbb;
+    /* 호버 시 더 진한 회색 */
     color: white;
+    /* 호버 시 흰색 글씨 */
+    border-color: #888;
 }
