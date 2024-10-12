@@ -21,7 +21,7 @@ def show_all_items(request: Request, db: Session = Depends(get_db)):
     """
     item_service = ItemService(db)
     return templates.TemplateResponse(
-        "item.html",
+        "item.jinja2",
         {
             "request": request,
             "item_data": item_service.get_all(),

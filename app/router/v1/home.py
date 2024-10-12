@@ -14,4 +14,4 @@ def show_home(request: Request):
     Returns:
         홈 페이지 반환 (HTML)
     """
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.jinja2", {"request": request})
