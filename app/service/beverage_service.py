@@ -10,9 +10,7 @@ class BeverageService:
     def __init__(self, db: Session):
         self.beverage_repository = BeverageRepository(db)
 
-    def add(
-        self, beverage_name: str, beverage_quantity: int
-    ):
+    def add(self, beverage_name: str, beverage_quantity: int):
         """
         음료 생성 함수
         Args:
@@ -21,8 +19,7 @@ class BeverageService:
         Returns:
             성공 여부
         """
-        self.beverage_repository.create_beverage(
-            beverage_name, beverage_quantity)
+        self.beverage_repository.create(beverage_name, beverage_quantity)
         return True
 
     def get_all(self):
@@ -30,10 +27,12 @@ class BeverageService:
         모든 음료 조회 함수
         Args:
         Returns:
-            beverages: 음료 정보 딕셔너리
+            beverages: 음료 정보 리스트
         """
-        beverages = {
-            bv.name: bv.quantity for bv in self.beverage_repository.read_all_beverages()}
+        beverages = [
+            {"id": bv.id, "name": bv.name, "quantity": bv.quantity}
+            for bv in self.beverage_repository.read_all()
+        ]
         return beverages
 
     def remove(self, beverage_id: int):
@@ -44,7 +43,7 @@ class BeverageService:
         Returns:
             성공 여부
         """
-        self.beverage_repository.delete_beverage_by_id(beverage_id)
+        self.beverage_repository.delete_by_id(beverage_id)
         return True
 
     def refill(self, beverage_id: int):
@@ -55,9 +54,9 @@ class BeverageService:
         Returns:
             성공 여부
         """
-        beverage = self.beverage_repository.read_beverage_by_id(beverage_id)
+        beverage = self.beverage_repository.read_by_id(beverage_id)
         beverage.quantity += 1
-        self.beverage_repository.update_beverage(beverage)
+        self.beverage_repository.update(beverage)
         return True
 
     def order(self, beverage_id: int):
@@ -68,10 +67,10 @@ class BeverageService:
         Returns:
             성공 시 True, 실패 시 False
         """
-        beverage = self.beverage_repository.read_beverage_by_id(beverage_id)
+        beverage = self.beverage_repository.read_by_id(beverage_id)
         if beverage.quantity == 0:
             return False
         else:
             beverage.quantity -= 1
-            self.beverage_repository.update_beverage(beverage)
+            self.beverage_repository.update(beverage)
             return True

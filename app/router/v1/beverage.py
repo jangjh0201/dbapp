@@ -21,7 +21,7 @@ def show_all_beverages(request: Request, db: Session = Depends(get_db)):
     """
     beverage_service = BeverageService(db)
     return templates.TemplateResponse(
-        "beverage.html",
+        "beverage.jinja2",
         {
             "request": request,
             "beverage_data": beverage_service.get_all(),
@@ -67,7 +67,7 @@ def extract_beverage(beverage_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.put("/beverage/{beverage_id}", dependencies=[Depends(manager)])
+@router.put("/beverage/refill/{beverage_id}", dependencies=[Depends(manager)])
 def refill_beverage(beverage_id: int, db: Session = Depends(get_db)):
     """
     음료 보충 API
@@ -84,7 +84,7 @@ def refill_beverage(beverage_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.post("/beverage/order/{beverage_id}", dependencies=[Depends(manager)])
+@router.put("/beverage/order/{beverage_id}", dependencies=[Depends(manager)])
 def order_beverage(beverage_id: int, db: Session = Depends(get_db)):
     """
     음료 주문 API

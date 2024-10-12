@@ -35,8 +35,7 @@ class BeverageRepository:
         return beverage
 
     def delete_by_id(self, beverage_id: int):
-        beverage = self.db.query(Beverage).filter(
-            Beverage.id == beverage_id).first()
+        beverage = self.db.query(Beverage).filter(Beverage.id == beverage_id).first()
         if beverage:
             self.db.delete(beverage)
             self.db.commit()
