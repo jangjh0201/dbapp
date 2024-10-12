@@ -1,18 +1,14 @@
-
 import sys
 import os
-from router.v1 import item
 from utils.init_db import initialize_tables
-from router.v1 import home, beverage, auth
+from router.v1 import home, item, beverage, auth
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 # 프로젝트 루트 디렉토리를 sys.path에 추가
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-app = FastAPI(
-    debug=True
-)
+app = FastAPI(debug=True)
 
 # 정적 파일 설정
 app.mount("/static", StaticFiles(directory="app/resource/static"), name="static")
