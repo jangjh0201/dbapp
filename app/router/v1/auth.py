@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Request, Form, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Request, Form, HTTPException, Response, status
 from fastapi.responses import RedirectResponse
-from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
-from config.database import get_db
 from auth.auth import manager, authenticate_user
 
 router = APIRouter()
@@ -37,12 +35,7 @@ async def logout(response: Response):
 
 
 @router.post("/auth/token")
-async def login(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...),
-    db: Session = Depends(get_db),
-):
+async def login(username: str = Form(...), password: str = Form(...)):
     """
     로그인 API
     Args:
