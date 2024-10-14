@@ -20,7 +20,7 @@ class ItemService:
         Returns:
             성공 여부
         """
-        self.item_repository.create_item(item_name, True)
+        self.item_repository.create(item_name)
         return True
 
     def get_all(self):
@@ -31,7 +31,7 @@ class ItemService:
         Returns:
             items: 모든 물품 정보 리스트
         """
-        items = self.item_repository.read_all_items()
+        items = self.item_repository.read_all()
         return items
 
     def remove(self, item_id: int):
@@ -43,7 +43,7 @@ class ItemService:
         Returns:
             성공 여부
         """
-        self.item_repository.delete_item_by_id(item_id)
+        self.item_repository.delete_by_id(item_id)
         return True
 
     def rename(self, item_id: int, name: str):
@@ -55,7 +55,7 @@ class ItemService:
         Returns:
             성공 여부
         """
-        self.item_repository.update_item(item_id, name, None)
+        self.item_repository.update(item_id, name, None)
         return True
 
     def store(self, item_id: int):
@@ -67,7 +67,7 @@ class ItemService:
         Returns:
             성공 시 물품 정보, 실패 시 None
         """
-        result = self.item_repository.update_item(item_id, None, True)
+        result = self.item_repository.update(item_id, None, True)
         return result
 
     def retrieve(self, item_id: int):
@@ -79,5 +79,5 @@ class ItemService:
         Returns:
             성공 시 물품 정보, 실패 시 None
         """
-        result = self.item_repository.update_item(item_id, None, False)
+        result = self.item_repository.update(item_id, None, False)
         return result

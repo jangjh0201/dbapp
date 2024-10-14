@@ -45,15 +45,11 @@ def set_new_item(
     """
     item_service = ItemService(db)
     item_service.add(name)
-    return show_all_items(request, db)
+    return item_service.get_all()
 
 
 @router.delete("/item/{item_id}", dependencies=[Depends(manager)])
-def delete_item(
-    request: Request,
-    item_id: int,
-    db: Session = Depends(get_db),
-):
+def delete_item(item_id: int, db: Session = Depends(get_db)):
     """
     물품 삭제 API
     Args:
@@ -63,8 +59,8 @@ def delete_item(
         모든 물품 정보 리스트 반환 (HTML)
     """
     item_service = ItemService(db)
-    item_service.delete(item_id)
-    return show_all_items(request, db)
+    item_service.remove(item_id)
+    return item_service.get_all()
 
 
 @router.put("/item/{item_id}", dependencies=[Depends(manager)])
@@ -87,7 +83,7 @@ def update_item(
     """
     item_service = ItemService(db)
     if name:
-        item_service.update_name(item_id, name)
+        item_service.rename(item_id, name)
     elif is_stored is not None:
         if is_stored:
             item_service.store(item_id)
