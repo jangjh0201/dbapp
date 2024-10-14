@@ -55,7 +55,8 @@ class ItemService:
         Returns:
             성공 여부
         """
-        self.item_repository.update(item_id, name, None)
+        item = self.item_repository.read_by_id(item_id)
+        self.item_repository.update(item, name, None)
         return True
 
     def store(self, item_id: int):
@@ -67,17 +68,19 @@ class ItemService:
         Returns:
             성공 시 물품 정보, 실패 시 None
         """
-        result = self.item_repository.update(item_id, None, True)
+        item = self.item_repository.read_by_id(item_id)
+        result = self.item_repository.update(item, None, True)
         return result
 
-    def retrieve(self, item_id: int):
+    def use(self, item_id: int):
         """
-        물품 반납 함수
+        물품 사용 함수
         Args:
             item_id: 물품 ID
             db: 데이터베이스 세션
         Returns:
             성공 시 물품 정보, 실패 시 None
         """
-        result = self.item_repository.update(item_id, None, False)
+        item = self.item_repository.read_by_id(item_id)
+        result = self.item_repository.update(item, None, False)
         return result

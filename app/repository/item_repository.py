@@ -19,11 +19,7 @@ class ItemRepository:
     def read_all(self):
         return self.db.query(Item).all()
 
-    def update(self, item_id: float, name: str = None, storage: bool = None):
-        item = self.db.query(Item).filter(Item.id == item_id).first()
-        if item is None:
-            return None
-
+    def update(self, item: Item, name: str, storage: bool):
         if name is not None:
             item.name = name
         if storage is not None:

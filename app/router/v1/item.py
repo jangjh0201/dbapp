@@ -21,20 +21,12 @@ def show_all_items(request: Request, db: Session = Depends(get_db)):
     """
     item_service = ItemService(db)
     return templates.TemplateResponse(
-        "item.jinja2",
-        {
-            "request": request,
-            "item_data": item_service.get_all(),
-        },
+        "item.jinja2", {"request": request, "item_data": item_service.get_all()}
     )
 
 
 @router.post("/item", dependencies=[Depends(manager)])
-def set_new_item(
-    request: Request,
-    name: str = Form(...),
-    db: Session = Depends(get_db),
-):
+def set_new_item(name: str = Form(...), db: Session = Depends(get_db)):
     """
     물품 추가 API
     Args:
@@ -49,7 +41,7 @@ def set_new_item(
 
 
 @router.delete("/item/{item_id}", dependencies=[Depends(manager)])
-def delete_item(item_id: int, db: Session = Depends(get_db)):
+def eliminate_item(item_id: int, db: Session = Depends(get_db)):
     """
     물품 삭제 API
     Args:
@@ -64,11 +56,9 @@ def delete_item(item_id: int, db: Session = Depends(get_db)):
 
 
 @router.put("/item/{item_id}", dependencies=[Depends(manager)])
-def update_item(
-    request: Request,
+def rename_item(
     item_id: int,
     name: str = Form(None),
-    is_stored: bool = Form(None),
     db: Session = Depends(get_db),
 ):
     """
@@ -82,11 +72,43 @@ def update_item(
         모든 물품 정보 리스트 반환 (HTML)
     """
     item_service = ItemService(db)
-    if name:
-        item_service.rename(item_id, name)
-    elif is_stored is not None:
-        if is_stored:
-            item_service.store(item_id)
-        else:
-            item_service.retrieve(item_id)
-    return show_all_items(request, db)
+    item_service.rename(item_id, name)
+    return item_service.get_all()
+
+
+@router.put("/item/{item_id}", dependencies=[Depends(manager)])
+def use_item(
+    request: Request,
+    item_id: int,
+    db: Session = Depends(get_db),
+):
+    """
+    물품 사용 API
+    Args:
+        item_id: 물품 ID
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환 (HTML)
+    """
+    item_service = ItemService(db)
+    item_service.use(item_id)
+    return show_all_items(request)
+
+
+@router.put("/item/{item_id}", dependencies=[Depends(manager)])
+def keep_item(
+    request: Request,
+    item_id: int,
+    db: Session = Depends(get_db),
+):
+    """
+    물품 보관 API
+    Args:
+        item_id: 물품 ID
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환 (HTML)
+    """
+    item_service = ItemService(db)
+    item_service.store(item_id)
+    return show_all_items(request)
