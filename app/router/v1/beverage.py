@@ -22,10 +22,7 @@ def show_all_beverages(request: Request, db: Session = Depends(get_db)):
     beverage_service = BeverageService(db)
     return templates.TemplateResponse(
         "beverage.jinja2",
-        {
-            "request": request,
-            "beverage_data": beverage_service.get_all(),
-        },
+        {"request": request, "beverage_data": beverage_service.get_all()},
     )
 
 

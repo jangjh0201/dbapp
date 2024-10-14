@@ -30,8 +30,8 @@ class BeverageService:
             beverages: 음료 정보 리스트
         """
         beverages = [
-            {"id": bv.id, "name": bv.name, "quantity": bv.quantity}
-            for bv in self.beverage_repository.read_all()
+            {"id": beverage.id, "name": beverage.name, "quantity": beverage.quantity}
+            for beverage in self.beverage_repository.read_all()
         ]
         return beverages
 
