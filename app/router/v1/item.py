@@ -48,7 +48,7 @@ def eliminate_item(item_id: int, db: Session = Depends(get_db)):
         item_id: 물품 ID
         db: 데이터베이스 세션
     Returns:
-        모든 물품 정보 리스트 반환 (HTML)
+        모든 물품 정보 리스트 반환
     """
     item_service = ItemService(db)
     item_service.remove(item_id)
@@ -69,7 +69,7 @@ def rename_item(
         is_stored: 물품 보유 여부
         db: 데이터베이스 세션
     Returns:
-        모든 물품 정보 리스트 반환 (HTML)
+        모든 물품 정보 리스트 반환
     """
     item_service = ItemService(db)
     item_service.rename(item_id, name)
@@ -88,11 +88,11 @@ def use_item(
         item_id: 물품 ID
         db: 데이터베이스 세션
     Returns:
-        모든 물품 정보 리스트 반환 (HTML)
+        모든 물품 정보 리스트 반환
     """
     item_service = ItemService(db)
     item_service.use(item_id)
-    return show_all_items(request)
+    return item_service.get_all()
 
 
 @router.put("/item/{item_id}", dependencies=[Depends(manager)])
@@ -107,8 +107,8 @@ def keep_item(
         item_id: 물품 ID
         db: 데이터베이스 세션
     Returns:
-        모든 물품 정보 리스트 반환 (HTML)
+        모든 물품 정보 리스트 반환
     """
     item_service = ItemService(db)
     item_service.store(item_id)
-    return show_all_items(request)
+    return item_service.get_all()
