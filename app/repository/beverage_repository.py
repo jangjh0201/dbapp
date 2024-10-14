@@ -19,12 +19,7 @@ class BeverageRepository:
     def read_all(self):
         return self.db.query(Beverage).all()
 
-    def update(
-        self,
-        beverage: Beverage,
-        name: str = None,
-        quantity: int = None,
-    ):
+    def update(self, beverage: Beverage, name: str = None, quantity: int = None):
         if name is not None:
             beverage.name = name
         if quantity is not None:
