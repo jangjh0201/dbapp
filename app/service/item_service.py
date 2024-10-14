@@ -31,7 +31,10 @@ class ItemService:
         Returns:
             items: 모든 물품 정보 리스트
         """
-        items = self.item_repository.read_all()
+        items = [
+            {"id": item.id, "name": item.name, "storage": item.storage}
+            for item in self.item_repository.read_all()
+        ]
         return items
 
     def remove(self, item_id: int):
