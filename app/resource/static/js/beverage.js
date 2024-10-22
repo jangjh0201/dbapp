@@ -17,7 +17,7 @@ function closeOnOutsideClick(event) {
 
 function orderBeverage(beverageId) {
     $.ajax({
-        url: '/beverage/order/' + beverageId,
+        url: `/beverage/${beverageId}/order`,
         type: 'PUT',
         success: function (response) {
             if (response.success) {
@@ -34,7 +34,7 @@ function orderBeverage(beverageId) {
 
 function refillBeverage(beverageId) {
     $.ajax({
-        url: '/beverage/refill/' + beverageId,
+        url: `/beverage/${beverageId}/refill`,
         type: 'PUT',
         success: function (response) {
             if (response.success) {

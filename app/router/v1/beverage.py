@@ -64,7 +64,7 @@ def extract_beverage(beverage_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.put("/beverage/refill/{beverage_id}", dependencies=[Depends(manager)])
+@router.put("/beverage/{beverage_id}/refill", dependencies=[Depends(manager)])
 def refill_beverage(beverage_id: int, db: Session = Depends(get_db)):
     """
     음료 보충 API
@@ -81,7 +81,7 @@ def refill_beverage(beverage_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.put("/beverage/order/{beverage_id}", dependencies=[Depends(manager)])
+@router.put("/beverage/{beverage_id}/order", dependencies=[Depends(manager)])
 def order_beverage(beverage_id: int, db: Session = Depends(get_db)):
     """
     음료 주문 API
