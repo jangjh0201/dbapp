@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from config.database import get_db
 from service.item_service import ItemService
-from auth.auth import manager
+from security.auth import manager
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/resource/templates")
@@ -53,7 +53,6 @@ def eliminate_item(item_id: int, db: Session = Depends(get_db)):
         모든 물품 정보 리스트 반환
     """
     item_service = ItemService(db)
-    item_service.remove(item_id)
     if item_service.remove(item_id):
         return {"success": True}
     else:

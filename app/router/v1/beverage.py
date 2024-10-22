@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi.templating import Jinja2Templates
 from service.beverage_service import BeverageService
 from config.database import get_db
-from auth.auth import manager
+from security.auth import manager
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/resource/templates")

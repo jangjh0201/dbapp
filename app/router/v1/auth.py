@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Form, HTTPException, Response, status
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from auth.auth import manager, authenticate_user
+from security.auth import manager, authenticate_user
 
 router = APIRouter()
 templates = Jinja2Templates(directory="app/resource/templates")
