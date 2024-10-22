@@ -59,7 +59,7 @@ def eliminate_item(item_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.put("/item/{item_id}", dependencies=[Depends(manager)])
+@router.put("/item/{item_id}/name", dependencies=[Depends(manager)])
 def rename_item(item_id: int, name: str = Form(None), db: Session = Depends(get_db)):
     """
     물품 수정 API
@@ -78,7 +78,7 @@ def rename_item(item_id: int, name: str = Form(None), db: Session = Depends(get_
         return {"success": False}
 
 
-@router.put("/item/{item_id}", dependencies=[Depends(manager)])
+@router.put("/item/{item_id}/use", dependencies=[Depends(manager)])
 def use_item(item_id: int, db: Session = Depends(get_db)):
     """
     물품 사용 API
@@ -95,7 +95,7 @@ def use_item(item_id: int, db: Session = Depends(get_db)):
         return {"success": False}
 
 
-@router.put("/item/{item_id}", dependencies=[Depends(manager)])
+@router.put("/item/{item_id}/keep", dependencies=[Depends(manager)])
 def keep_item(item_id: int, db: Session = Depends(get_db)):
     """
     물품 보관 API

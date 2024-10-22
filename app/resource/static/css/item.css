@@ -51,12 +51,20 @@ h3 {
     margin: 20px 0;
     display: flex;
     justify-content: center;
+    align-items: center;
+    /* 아이콘을 세로 중앙에 위치 */
+    height: 150px;
+    /* 컨테이너의 높이를 설정 */
 }
 
 .item-icon {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    /* 아이콘의 너비를 80px로 설정 */
+    height: 80px;
+    /* 아이콘의 높이를 80px로 설정 */
     cursor: pointer;
+    object-fit: contain;
+    /* 아이콘의 비율을 유지하며 크기 조정 */
 }
 
 .add-dispenser {

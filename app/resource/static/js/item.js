@@ -24,8 +24,8 @@ function addItem() {
             url: '/item',
             type: 'POST',
             data: { name: name },
-            contentType: 'application/x-www-form-urlencoded',
             success: function (response) {
+                alert('등록되었습니다.');
                 location.reload(); // 성공 시 페이지 새로고침
             },
             error: function (error) {
@@ -40,10 +40,15 @@ function addItem() {
 // 아이템 삭제
 function deleteItem(itemId) {
     $.ajax({
-        url: '/item/' + itemId,
+        url: `/item/${itemId}`,
         type: 'DELETE',
         success: function (response) {
-            location.reload(); // 삭제 후 새로고침
+            if (response.success) {
+                alert('삭제되었습니다.');
+                location.reload(); // 삭제 후 새로고침
+            } else {
+                alert('물품 삭제에 실패했습니다.');
+            }
         },
         error: function (error) {
             alert('물품을 삭제하는 중 오류가 발생했습니다.');
@@ -54,7 +59,8 @@ function deleteItem(itemId) {
 // 아이콘 상태 변경 (cabinet_store <-> cabinet_use)
 function toggleIcon(icon, itemId) {
     const currentSrc = icon.getAttribute('src');
-    const newSrc = currentSrc.includes('cabinet_store')
+    const isStoring = currentSrc.includes('cabinet_store');
+    const newSrc = isStoring
         ? '/static/images/cabinet_use.png'
         : '/static/images/cabinet_store.png';
 
@@ -62,12 +68,11 @@ function toggleIcon(icon, itemId) {
     icon.setAttribute('src', newSrc);
 
     // 상태를 서버에 전달
-    const action = newSrc.includes('cabinet_store') ? 'store' : 'use';
+    const actionUrl = isStoring ? `/item/${itemId}/use` : `/item/${itemId}/keep`;
 
     $.ajax({
-        url: `/item/${itemId}`,
+        url: actionUrl,  // '/item/1/use' 또는 '/item/1/keep' 로 요청됨
         type: 'PUT',
-        data: { action: action },
         success: function (response) {
             if (response.success) {
                 console.log('상태 변경 성공');
@@ -82,29 +87,5 @@ function toggleIcon(icon, itemId) {
     });
 }
 
-// 이름 수정
-function editItemName(event, input, itemId) {
-    if (event.key === 'Enter') {
-        const name = input.value.trim();
-        if (name) {
-            $.ajax({
-                url: `/item/${itemId}`,
-                type: 'PUT',
-                data: { name: name },
-                contentType: 'application/x-www-form-urlencoded',
-                success: function (response) {
-                    if (response.success) {
-                        alert('물품 이름이 수정되었습니다.');
-                        location.reload(); // 수정 후 새로고침
-                    } else {
-                        alert('물품 이름 수정에 실패했습니다.');
-                    }
-                },
-                error: function (error) {
-                    console.error('Error:', error);
-                    alert('물품 이름 수정 중 오류가 발생했습니다.');
-                }
-            });
-        }
-    }
-}
+// 모달 외부 클릭 이벤트 등록
+document.addEventListener('click', closeOnOutsideClick);

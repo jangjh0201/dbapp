@@ -22,7 +22,7 @@
                 <img src="{% if item.storage %}/static/images/cabinet_store.png{% else %}/static/images/cabinet_use.png{% endif %}" 
                      class="item-icon" 
                      data-item-id="{{ item.id }}" 
-                     onclick="toggleIcon(this)">
+                     onclick="toggleIcon(this, '{{ item.id }}')">
             </div>
         </div>
         {% endfor %}
