@@ -22,6 +22,17 @@ class BeverageService:
         self.beverage_repository.create(beverage_name, beverage_quantity)
         return True
 
+    def get_by_name(self, beverage_name: str):
+        """
+        음료 ID 조회 함수
+        Args:
+            beverage_name: 음료 이름
+        Returns:
+            beverage_id: 음료 ID
+        """
+        beverage = self.beverage_repository.read_by_name(beverage_name)
+        return beverage
+
     def get_all(self):
         """
         모든 음료 조회 함수

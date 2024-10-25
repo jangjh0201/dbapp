@@ -96,3 +96,21 @@ def order_beverage(beverage_id: int, db: Session = Depends(get_db)):
         return {"success": True}
     else:
         return {"success": False}
+
+
+@router.put("/ai/{name}/order")
+def ai_order_beverage(name: str, db: Session = Depends(get_db)):
+    """
+    음료 주문 AI API
+    Args:
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환
+    """
+
+    beverage_service = BeverageService(db)
+    beverage_id = beverage_service.get_by_name(name).id
+    if beverage_service.order(beverage_id):
+        return {"success": True}
+    else:
+        return {"success": False}

@@ -16,6 +16,9 @@ class BeverageRepository:
     def read_by_id(self, beverage_id: int):
         return self.db.query(Beverage).filter(Beverage.id == beverage_id).first()
 
+    def read_by_name(self, name: str):
+        return self.db.query(Beverage).filter(Beverage.name == name).first()
+
     def read_all(self):
         return self.db.query(Beverage).all()
 
