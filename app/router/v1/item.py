@@ -110,3 +110,68 @@ def keep_item(item_id: int, db: Session = Depends(get_db)):
         return {"success": True}
     else:
         return {"success": False}
+
+
+@router.put("/ai/{name}/use")
+def ai_use_item(name: str, db: Session = Depends(get_db)):
+    """
+    물품 사용 AI API
+    Args:
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환
+    """
+    item_service = ItemService(db)
+    item_id = item_service.get_id(name)
+    if item_service.use(item_id):
+        return {"success": True}
+    else:
+        return {"success": False}
+
+
+@router.put("/ai/{name}/keep")
+def ai_keep_item(name: str, db: Session = Depends(get_db)):
+    """
+    물품 보관 AI API
+    Args:
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환
+    """
+    item_service = ItemService(db)
+    item_id = item_service.get_id(name)
+    if item_service.store(item_id):
+        return {"success": True}
+    else:
+        return {"success": False}
+
+
+@router.post("/ai/all/use")
+def ai_use_all_items(db: Session = Depends(get_db)):
+    """
+    모든 물품 사용 AI API
+    Args:
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환
+    """
+    item_service = ItemService(db)
+    for item in item_service.get_all():
+        item_service.use(item["id"])
+    return {"success": True}
+
+
+@router.post("/ai/remain/keep")
+def ai_keep_remain_items(db: Session = Depends(get_db)):
+    """
+    남은 물품 보관 AI API
+    Args:
+        db: 데이터베이스 세션
+    Returns:
+        모든 물품 정보 리스트 반환
+    """
+    item_service = ItemService(db)
+    for item in item_service.get_all():
+        if not item["storage"]:
+            item_service.store(item["id"])
+    return {"success": True}
