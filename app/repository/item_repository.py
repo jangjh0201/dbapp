@@ -16,6 +16,9 @@ class ItemRepository:
     def read_by_id(self, item_id: float):
         return self.db.query(Item).filter(Item.id == item_id).first()
 
+    def read_by_name(self, name: str):
+        return self.db.query(Item).filter(Item.name == name).first()
+
     def read_all(self):
         return self.db.query(Item).all()
 

@@ -37,6 +37,17 @@ class ItemService:
         ]
         return items
 
+    def get_id(self, name: str):
+        """
+        물품 ID 조회 함수
+        Args:
+            name: 물품 이름
+            db: 데이터베이스 세션
+        Returns:
+            물품 ID
+        """
+        return self.item_repository.read_by_name(name).id
+
     def remove(self, item_id: int):
         """
         물품 삭제 함수
